@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block title %}Página Inicial - Florista{% endblock %}
+
+{% block content %}
+    <h1 class="text-center text-primary mb-4">Bem-vindo ao Sistema de Florista</h1>
+    <div class="card shadow p-4 mb-4">
+        <h4 class="text-secondary">O que deseja fazer?</h4>
+        <div class="d-grid gap-3">
+            <a href="{{ url_for('clientes') }}" class="btn btn-primary btn-lg">Gerenciar Clientes</a>
+            <a href="{{ url_for('produtos') }}" class="btn btn-success btn-lg">Gerenciar Produtos</a>
+            <a href="{{ url_for('pedidos') }}" class="btn btn-warning btn-lg">Gerenciar Pedidos</a>
+        </div>
+    </div>
+{% endblock %}

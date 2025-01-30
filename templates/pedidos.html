@@ -1,0 +1,71 @@
+{% extends 'layout.html' %}
+
+{% block title %}Cadastro de Pedidos - Florista{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+
+        <h1 class="text-center text-primary mb-4">Cadastro de Pedidos</h1>
+
+        <!-- Card para formulário de cadastro de pedido -->
+        <div class="card shadow p-4 mb-4">
+            <h4 class="text-secondary">Novo Pedido</h4>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="cliente_id" class="form-label">Cliente:</label>
+                    <select id="cliente_id" name="cliente_id" class="form-select" required>
+                        <option value="" disabled selected>Selecione o cliente</option>
+                        {% for cliente in clientes %}
+                            <option value="{{ cliente.id }}">{{ cliente.nome }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="produtos" class="form-label">Produtos:</label>
+                    <select id="produtos" name="produtos" class="form-select" multiple required>
+                        <option value="" disabled>Selecione os produtos</option>
+                        {% for produto in produtos %}
+                            <option value="{{ produto.id }}">{{ produto.nome }} - R$ {{ produto.preco }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Cadastrar Pedido</button>
+            </form>
+        </div>
+
+        <!-- Exibição dos pedidos cadastrados -->
+        <h2 class="text-center text-secondary mb-4">Pedidos Cadastrados</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped shadow">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Cliente</th>
+                        <th>Produtos</th>
+                        <th>Data do Pedido</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for pedido in pedidos %}
+                    <tr>
+                        <td>{{ pedido.id }}</td>
+                        <td>{{ pedido.cliente.nome }}</td>
+                        <td>
+                            {% for produto in pedido.produtos %}
+                                {{ produto.nome }}<br>
+                            {% endfor %}
+                        </td>
+                        <td>{{ pedido.data_pedido.strftime('%d/%m/%Y %H:%M:%S') }}</td>
+                        <td>
+                            <a href="{{ url_for('remover_pedido', id=pedido.id) }}" class="btn btn-danger btn-sm">Remover</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'layout.html' %}
+
+{% block title %}Cadastro de Produtos - Florista{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center text-primary mb-4">Cadastro de Produtos</h1>
+
+        <!-- Card para formulário de cadastro de produto -->
+        <div class="card shadow p-4 mb-4">
+            <h4 class="text-secondary">Novo Produto</h4>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome do Produto:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="tipo" class="form-label">Tipo do Produto:</label>
+                    <select id="tipo" name="tipo" class="form-select" required>
+                        <option value="" disabled selected>Selecione o tipo</option>
+                        <option value="Vaso">Vaso</option>
+                        <option value="Planta">Planta</option>
+                        <option value="Flor">Flor</option>
+                    </select>
+                </div>
+                <div class="mb-3">
+                    <label for="preco" class="form-label">Preço:</label>
+                    <input type="number" id="preco" name="preco" class="form-control" step="0.01" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+            </form>
+        </div>
+
+        <!-- Exibição dos produtos cadastrados -->
+        <h2 class="text-center text-secondary mb-4">Produtos Cadastrados</h2>
+
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped shadow">
+                <thead class="table-primary">
+                    <tr>
+                        <th>ID</th>
+                        <th>Nome</th>
+                        <th>Tipo</th>
+                        <th>Preço</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produto in produtos %}
+                    <tr>
+                        <td>{{ produto.id }}</td>
+                        <td>{{ produto.nome }}</td>
+                        <td>{{ produto.tipo }}</td>
+                        <td>R$ {{ produto.preco }}</td>
+                        <td>
+                            <a href="{{ url_for('remover_produto', id=produto.id) }}" class="btn btn-danger btn-sm">Remover</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}

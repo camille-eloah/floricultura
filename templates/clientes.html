@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}Cadastro de Clientes - Florista{% endblock %}
+
+{% block content %}
+    <div class="container mt-5">
+        <h1 class="text-center text-primary mb-4">Cadastro de Clientes</h1>
+
+        <div class="card shadow p-4 mb-4">
+            <h4 class="text-secondary">Novo Cliente</h4>
+            <form method="POST">
+                <div class="mb-3">
+                    <label for="rg" class="form-label">RG:</label>
+                    <input type="text" id="rg" name="rg" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome:</label>
+                    <input type="text" id="nome" name="nome" class="form-control" required>
+                </div>
+                <div class="mb-3">
+                    <label for="telefone" class="form-label">Telefone:</label>
+                    <input type="text" id="telefone" name="telefone" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary w-100">Cadastrar</button>
+            </form>
+        </div>
+
+        <h2 class="text-center text-secondary">Lista de Clientes</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped shadow">
+                <thead class="table-primary">
+                    <tr>
+                        <th>Nome</th>
+                        <th>RG</th>
+                        <th>Telefone</th>
+                        <th>Ações</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for cliente in clientes %}
+                    <tr>
+                        <td>{{ cliente.nome }}</td>
+                        <td>{{ cliente.rg }}</td>
+                        <td>{{ cliente.telefone }}</td>
+                        <td>
+                            <a href="{{ url_for('remover_cliente', id=cliente.id) }}" class="btn btn-danger btn-sm">Remover</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+{% endblock %}
