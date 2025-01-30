@@ -5,6 +5,22 @@
 {% block content %}
     <div class="container mt-5">
         <h1 class="text-center text-primary mb-4">Cadastro de Produtos</h1>
+        
+        <!-- Exibição das flash messages -->
+        <div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+                {% if messages %}
+                    <div class="alert-container">
+                        {% for category, message in messages %}
+                            <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                                {{ message }}
+                                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            {% endwith %}
+        </div>
 
         <!-- Card para formulário de cadastro de produto -->
         <div class="card shadow p-4 mb-4">
